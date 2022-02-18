@@ -2,12 +2,8 @@ from tkinter import *
 import random
 import time
 
-root = Tk() # Переменная главного виджета или окна
-# label - поле на котором располгается что либо
-# Entry - это инпут куда можно вводить что либо
-
+root = Tk()
 colors = ['red', 'green', 'blue', 'orange', 'black']
-
 points = 0
 text_task = "" # Рандомное задание
 a1 = 6 # Эти переменные нужны на старте, чтобы программа не удаляла элементы внутри массива
@@ -18,13 +14,13 @@ def random_task():
     col = ['red', 'green', 'blue', 'orange', 'black']
     col_text = ['red', 'green', 'blue', 'orange', 'black']
     text_task = colors[random.randint(0, len(colors) - 1)] # рандомное задание
-    lab.config(bg=text_task) # Рандомное задание
+    lab.config(bg=text_task)
 
     def random_color():
         if a2 < 5: # Если предыдущий результат уже получен
             col_text.pop(a2) #  удаляем этот вариант из массива
         num = random.randint(0, len(col) - 1)
-        global a1
+        global a1 # Не знаю как сделать без этой задротской ерунды
         a1 = num
         return num
 
@@ -37,8 +33,7 @@ def random_task():
         return num
 
 
-    # Кнопки
-
+    # Создаем рандомные кнопки
     but.config(bg=col[random_color()], text=col_text[random_text()])
     but1.config(bg=col[random_color()], text=col_text[random_text()])
     but2.config(bg=col[random_color()], text=col_text[random_text()])
@@ -50,16 +45,13 @@ def random_task():
         a2 = 6
     abs()
 
-    now = 0
-    def update_clock():
-        global now
-        now = int(time.perf_counter())
+    def update_clock(): #Таймер. Как ни обнуляй, но отсчет начинает идти с запуска программы, а не запуска функции :(
+        now = int(time.perf_counter()) 
         time_left.configure(text=now)
         root.after(1000, update_clock)
-
-        if now > 5:
+        if now > 10:
             time_left.configure(text='Время и стекло')
-            result.configure(text=f'Ваш результат {points}')
+            result.configure(text=f'Ваш результат: {points}')
             return
 
     update_clock()
